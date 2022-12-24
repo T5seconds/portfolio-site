@@ -4,7 +4,6 @@ import artApiService from "../services/artApiService";
 import myStrings from "../myStrings";
 import "./landingPage.css";
 import ContactModal from "./ContactModal";
-<script src="http://localhost:8097"></script>;
 
 //REVIEW:  Cards need to be refactored so that they can be reused,
 // then the "show modal" needs to be refactored to use switch case logic to determine who should be showing
