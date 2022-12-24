@@ -37,7 +37,7 @@ artApiService.searchObjects = (query) => {
   return axios(config).then(returnData);
 };
 
-artApiService.getObject = (objectId) => {
+artApiService.getObject = async (objectId) => {
   const config = {
     method: "GET",
     url: `${artApiService.endpoint}/public/collection/v1/objects/${objectId}`,
