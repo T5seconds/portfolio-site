@@ -3,22 +3,40 @@ import { Row, Col, Card, Container } from "react-bootstrap";
 import artApiService from "../services/artApiService";
 import myStrings from "../myStrings";
 import "./landingPage.css";
+import ContactModal from "./ContactModal";
 <script src="http://localhost:8097"></script>;
 
+//REVIEW:  Cards need to be refactored so that they can be reused,
+// then the "show modal" needs to be refactored to use switch case logic to determine who should be showing
+
 function LandingPage() {
-  const [backgroundInfo, setBackgroundInfo] = useState();
+  const [backgroundInfo, setBackgroundInfo] = useState({
+    backgroundImage: "",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    height: "100%",
+    minWidth: "100%",
+  });
   const [imageInfo, setImageInfo] = useState();
   const [imageArray, setImageArray] = useState();
+  const [currentDigit, setCurrentDigit] = useState();
+  const [showModal, setShowModal] = useState(false);
 
   const onSearchObjectsWin = (response) => {
-    console.log("!", response.objectIDs);
-    filterForImages(response.objectIDs, 20);
+    console.log("Raw Ids", response.objectIDs);
+    filterForImages(response.objectIDs, 8);
+    // Not scalable. More than ten gets slow. Investigate more efficent filltering method, be mildly irritated.
   };
 
-  const getRandomObject = (objectIds) => {
-    var randomId = [];
-    randomId = objectIds[Math.floor(Math.random() * objectIds.length)];
-    return randomId;
+  const getRandomObject = (objectArray) => {
+    const randomDigit = Math.floor(Math.random() * objectArray.length);
+    if (randomDigit === currentDigit) {
+      return getRandomObject(objectArray);
+    } else {
+      const randomObj = objectArray[randomDigit];
+      setCurrentDigit(randomDigit);
+      return randomObj;
+    }
   };
 
   const filterForImages = async (objectIds, outputArraySize) => {
@@ -31,39 +49,56 @@ function LandingPage() {
       );
     }
     const objects = await Promise.all(promises);
-    const outputArray = objects.filter((object) => object.primaryImage);
-    console.log(outputArray);
-    setImageArray(outputArray);
-    setImageInfo(getRandomObject(outputArray));
-    setBackgroundInfo(() => {
-      return {
-        backgroundImage: `url("${outputArray[0].primaryImage}")`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        height: "100%",
-        minWidth: "100%",
-      };
-      // NOTE: This might be refactored to use a special img class so that I can
-      // potentially impliment image scroll w/ mouse  https://tinyurl.com/4hcsmfn4
+    const outputArray = objects?.filter((object) => object.primaryImage);
+    console.log("Output array", outputArray);
+    const firstImage = getRandomObject(outputArray);
+    setBackgroundInfo((prevState) => {
+      const newState = { ...prevState };
+      newState.backgroundImage = `url(${firstImage.primaryImage})`;
+      return newState;
     });
+    setImageInfo(firstImage);
+    setImageArray(outputArray);
+
+    // NOTE: This might be refactored to use a special img class so that I can
+    // potentially impliment image scroll w/ mouse  https://tinyurl.com/4hcsmfn4
+
     return outputArray;
   };
 
+  const handleLinks = (e) => {
+    console.log(e.target);
+    switch (e.target.id) {
+      case "linkedin":
+        window.location.href = myStrings.linkedin;
+        break;
+      case "github":
+        window.location.href = myStrings.github;
+        break;
+      default:
+        break;
+    }
+  };
+
   const changeArt = () => {
-    const newId = getRandomObject(imageArray);
-    console.log("what", newId);
+    const newObject = getRandomObject(imageArray);
+    console.log("ChangedArt", newObject);
     setBackgroundInfo((prevState) => {
       const newState = { ...prevState };
-      newState.backgroundImage = `url(${newId.primaryImage})`;
+      newState.backgroundImage = `url(${newObject.primaryImage})`;
       return newState;
     });
-    setImageInfo(newId);
+    setImageInfo(newObject);
+  };
+
+  const checkModal = (e) => {
+    console.log("!_!", showModal);
+    setShowModal(!showModal);
   };
 
   useMemo(() => {
     artApiService.searchObjects("Nature").then(onSearchObjectsWin);
   }, []);
-  // margins will be set based on Widith
 
   return (
     <Fragment>
@@ -74,14 +109,30 @@ function LandingPage() {
         <Row className="m-2 w-100 align-items-stretch">
           <Col className="justify-content-between d-flex flex-column w-100">
             <div
-              className="d-flex justify-content-start"
+              className="d-flex-inline justify-content-start"
               style={{ marginTop: "15vh", marginLeft: "14vw" }}
             >
               <Card className="landing-card p-4">
                 <Card.Body className="" onClick={changeArt}>
-                  <h1 className="display-3">Michael Prewitt</h1>
+                  <h1 className="text-center display-3">Michael Prewitt</h1>
                 </Card.Body>
               </Card>
+              {window.innerWidth < 760 && (
+                <div className="d-flex">
+                  <Card
+                    className="landing-card landing-small-tile"
+                    onClick={handleLinks}
+                  >
+                    <Card.Body id={"github"}>GitHub</Card.Body>
+                  </Card>
+                  <Card
+                    className="landing-card landing-small-tile"
+                    onClick={handleLinks}
+                  >
+                    <Card.Body id={"linkedin"}>Linkdin</Card.Body>
+                  </Card>
+                </div>
+              )}
             </div>
             <div
               className="d-flex align-content-baseline"
@@ -118,23 +169,38 @@ function LandingPage() {
                 <div className="d-flex-inline text-center w-75">
                   <Card className="landing-card m-1 p-1">
                     <Card.Body>
-                      <h4>Links for you</h4>
+                      <h4>More details</h4>
                     </Card.Body>
                   </Card>
                   {/* TODO: These will be componentized cards that switch out */}
                   <Col className="d-flex flex-wrap justify-content-center">
-                    <Card className="landing-card landing-small-tile">
-                      <Card.Body>Email</Card.Body>
+                    <Card
+                      className="landing-card landing-small-tile"
+                      onClick={handleLinks}
+                    >
+                      <Card.Body id="linkedin">Linkdin</Card.Body>
                     </Card>
-                    <Card className="landing-card landing-small-tile">
-                      <Card.Body>Resume</Card.Body>
+                    <Card
+                      className="landing-card landing-small-tile"
+                      onClick={handleLinks}
+                    >
+                      <Card.Body id="github">GitHub</Card.Body>
                     </Card>
-                    <Card className="landing-card landing-small-tile">
-                      <Card.Body>GitHub</Card.Body>
+                    <Card
+                      className="landing-card landing-small-tile"
+                      id="email"
+                      onClick={handleLinks}
+                    >
+                      <Card.Body id="email" onClick={checkModal}>
+                        Contact Info
+                      </Card.Body>
                     </Card>
-                    <Card className="landing-card landing-small-tile">
-                      <Card.Body>Linkedin</Card.Body>
-                    </Card>
+                    {showModal && (
+                      <ContactModal
+                        showModal={showModal}
+                        checkModal={checkModal}
+                      />
+                    )}
                   </Col>
                 </div>
               </div>
