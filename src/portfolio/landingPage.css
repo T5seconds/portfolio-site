@@ -7,15 +7,16 @@ div.landing-card {
     align-content: center;
     box-shadow: 5px 5px 15px black;
 }
+
+div.landing-card:hover {
+    background-color: rgba(76, 76, 76, 0.8);
+}
+
 div.landing-small-tile {
     width: 48%;
     margin: 1%;
     padding: 2%;
 }
-
-/* div.name-card-container {
-    display: flex;
-} */
 
 div.landing-background {
         background-size: "cover";
