@@ -7,6 +7,12 @@ div.landing-card {
     align-content: center;
     box-shadow: 5px 5px 15px black;
 }
+h5 {
+    font-size: 1.5em !important
+}
+h1 {
+    font-size: 2em !important;
+}
 
 div.landing-card:hover {
     background-color: rgba(76, 76, 76, 0.8);
@@ -23,4 +29,8 @@ div.landing-background {
         background-position: "center";
         min-height: "100%" ;
         width: "100%" ;
+}
+
+a.light-blue {
+    color: rgba(215, 229, 240)
 }
