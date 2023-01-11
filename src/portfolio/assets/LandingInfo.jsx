@@ -4,7 +4,7 @@ import "../landingPage.css";
 
 export default function LandingPitch() {
   return (
-    <Card className="landing-card p-2 w-75">
+    <Card className="landing-card card p-2 w-50">
       <Card.Body>
         <h4>{myStrings.landingPitch}</h4>
         <h4>

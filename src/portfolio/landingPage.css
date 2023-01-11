@@ -13,6 +13,9 @@ h5 {
 h1 {
     font-size: 2em !important;
 }
+h2 {
+    font-size: 1.2em !important;
+}
 
 div.landing-card:hover {
     background-color: rgba(76, 76, 76, 0.8);
@@ -33,4 +36,8 @@ div.landing-background {
 
 a.light-blue {
     color: rgba(215, 229, 240)
+}
+
+h2.animate-text {
+    font-family: Baskerville, 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }

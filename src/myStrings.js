@@ -11,4 +11,6 @@ myStrings.professionalEmail = "michaelprewittit@gmail.com";
 
 myStrings.businessPhone = "951-842-5161";
 
+myStrings.animationText = `Michael Prewitt, Software Developer`;
+
 export default myStrings;

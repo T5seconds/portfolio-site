@@ -1,11 +1,6 @@
-html {
-  height: 100%;
-  width: 100%;
-}
 body {
-  min-height: 100%;
-  display: flex;
-  width: 100%;
+  min-height: 100vh;
+  width: 100vw;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -18,6 +13,6 @@ code {
     monospace;
 }
 html, #root, #root>div {
-  height: 100%;
-  width: 100%;
+  height: 100vh;
+  width: 100vw;
 }

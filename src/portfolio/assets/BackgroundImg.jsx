@@ -2,8 +2,6 @@ import React, { useMemo, useState } from "react";
 import artApiService from "../../services/artApiService";
 
 const BackgroundImg = (props) => {
-  const [backgroundImage, setBackgroundImage] = useState();
-
   const onSearchObjectsWin = (response) => {
     const filterForImages = async (objectIds, outputArraySize) => {
       const promises = [];
@@ -20,12 +18,13 @@ const BackgroundImg = (props) => {
       const outputArray = objects?.filter((object) => object.primaryImage);
       console.log("Output array", outputArray);
       const firstImage = props.getRandomObject(outputArray);
-      setBackgroundImage(() => {
+      props.setBackgroundImage(() => {
         const newBackgroundImage = firstImage.primaryImage;
         return newBackgroundImage;
       });
       props.setImageInfo(firstImage);
       props.setImageArray(outputArray);
+      props.setIsAniVisible(false);
 
       return outputArray;
     };
@@ -41,14 +40,21 @@ const BackgroundImg = (props) => {
 
   const backgroundStyle = {
     pointerEvents: "none",
+    backgroundColor: "black",
     position: "absolute",
     objectFit: "cover",
     objectPosition: "center",
-    width: "100%",
-    height: "100%",
+    width: "100vw",
+    height: "100vh",
     zIndex: -1,
   };
-  return <img style={backgroundStyle} src={backgroundImage}></img>;
+  return (
+    <img
+      style={backgroundStyle}
+      alt={"/portfolio_site/1490.gif"}
+      src={props.backgroundImage}
+    ></img>
+  );
 };
 
 export default BackgroundImg;
