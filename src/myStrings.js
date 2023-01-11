@@ -1,7 +1,8 @@
 const myStrings = {};
 
-myStrings.landingPitch = `I'm a full-stack developer that's passionate about building software with impact.
-I'm interested in using VR, AI, and humane design to build a better internet for everyone.`;
+myStrings.landingPitch = `I'm a full-stack developer that's passionate about building software with impact. I'm a big fan
+of old school hacker culture and I've been programming as a hobby since I was a kid. I love *nix systems, clever solutions,
+and building helpful things.`;
 
 myStrings.linkedin = "https://www.linkedin.com/in/michael-prewitt-71a57b246/";
 

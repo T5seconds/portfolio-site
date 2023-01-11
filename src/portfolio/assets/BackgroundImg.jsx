@@ -25,11 +25,12 @@ const BackgroundImg = (props) => {
       props.setImageInfo(firstImage);
       props.setImageArray(outputArray);
       props.setIsAniVisible(false);
+      document.body.style.overflow = "auto";
 
       return outputArray;
     };
 
-    filterForImages(response.objectIDs, 8);
+    filterForImages(response.objectIDs, 10);
     // Not scalable. More than ten gets slow. Investigate more efficent filltering method, be mildly irritated.
     // Get 5 images, start at first index, refactor so that it grabs next five images in background on fourth index
   };
@@ -45,7 +46,7 @@ const BackgroundImg = (props) => {
     objectFit: "cover",
     objectPosition: "center",
     width: "100vw",
-    height: "100vh",
+    height: "95vh",
     zIndex: -1,
   };
   return (

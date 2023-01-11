@@ -7,14 +7,11 @@ div.landing-card {
     align-content: center;
     box-shadow: 5px 5px 15px black;
 }
-h5 {
-    font-size: 1.5em !important
+div.landing-large-text {
+    font-size: clamp(1.5rem, 2.5vw, 5rem);
 }
-h1 {
-    font-size: 2em !important;
-}
-h2 {
-    font-size: 1.2em !important;
+p.landing-normal-text{
+    font-size: clamp(1rem, 2.0vw, 2rem);
 }
 
 div.landing-card:hover {
@@ -40,4 +37,19 @@ a.light-blue {
 
 h2.animate-text {
     font-family: Baskerville, 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+div.landing-modal{
+    font-family: 'Optima', 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    background-color: rgb(255, 255, 255);
+    font-size: clamp(1.3rem, 2.5vw, 5rem);
+    border: 0px;
+}
+
+div.content-background{
+    font-family: 'Optima', 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    background-color: #2D3436;
+}
+div.content-surface{
+    background-color: #636E72;
 }

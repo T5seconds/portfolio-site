@@ -12,7 +12,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-html, #root, #root>div {
-  height: 100vh;
+html, #root {
+  height: 100%;
   width: 100vw;
+}
+
+#root>div {
+  width: 100vw;
+  height: 95vh;
 }
