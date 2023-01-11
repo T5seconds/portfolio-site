@@ -47,7 +47,7 @@ const BackgroundImg = (props) => {
     objectPosition: "center",
     width: "100vw",
     height: "95vh",
-    zIndex: 10000,
+    zIndex: 0,
   };
   return (
     <img
